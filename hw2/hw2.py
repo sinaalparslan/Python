@@ -1,5 +1,5 @@
 import random
-
+'''
 list1 = []
 for i in range(1000):
     random_number = random.randint(1, 5000)
@@ -24,3 +24,21 @@ def find_num(list, num):
 
 
 find_num(list1, num)
+'''
+name = input('Name : ')
+file = 'hw2'
+def read_file(file,name):
+
+    d = {}
+    with open(f"{file}.txt") as f:
+        for line in f:
+           (key, val) = line.split()
+           d[(key)] = val
+
+
+    if name in d:
+        print(f'{name} was born in {d[name]}')
+    else:
+        print(f'{name} not a valid name')
+read_file(file,name)
+
