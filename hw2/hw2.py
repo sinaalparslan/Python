@@ -1,44 +1,47 @@
-import random
-'''
-list1 = []
-for i in range(1000):
-    random_number = random.randint(1, 5000)
-
-    list1.append(random_number)
-list1.sort()
-num = list1[len(list1) - 25]
-print(num)
+from typing import Dict
 
 
-def find_num(list, num):
-    low_num = 0
-    upp_num = len(list) - 1
-    while (list[low_num] <= list[upp_num]):
-        mid_num = (low_num + upp_num) // 2
-        if list[mid_num] < num:
-            low_num = mid_num + 1
-        elif list[mid_num] > num:
-            upp_num = mid_num - 1
-        else:
-            return mid_num
-
-
-find_num(list1, num)
-'''
-name = input('Name : ')
-file = 'hw2'
-def read_file(file,name):
-
+def read_file(file: str):
+    """
+    Dosyayı okuyup içindeki değerleri dictionary ile dönme.
+    :param file: file name
+    :return: Dict[isim:yer]
+    """
     d = {}
     with open(f"{file}.txt") as f:
         for line in f:
-           (key, val) = line.split()
-           d[(key)] = val
+            split_line = line.split()
+            key = split_line[0]
+            val = split_line[1]
+            d[key] = val
+
+    return d
 
 
-    if name in d:
-        print(f'{name} was born in {d[name]}')
+def find_and_update_value(values: dict, target: str):
+    """
+    Hedef kelimeyi verinin içinden arıyor. Hedef varsa print edilir. Yoksa kullanıcıdan değeri alınır ve dict e atılır.
+    :param values:
+    :param target:
+    :return:
+    """
+    if target in values:
+        print(f'{target} was born in {values[target]}')
     else:
-        print(f'{name} not a valid name')
-read_file(file,name)
+        place = input(f"Tell me a place for user {target}")
+        values[target] = place
+        print(f'Saved.')
 
+
+def main():
+    file = 'hw2'
+    my_dict = read_file(file)
+
+    while True:
+        name = input('Name: ')
+        if name == "exit":
+            return
+        find_and_update_value(my_dict, name)
+
+
+main()
